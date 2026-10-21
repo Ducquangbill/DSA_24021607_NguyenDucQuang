@@ -7,9 +7,14 @@ struct Node {
     Node* next;
     Node* prev;
     Node(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
 
-    int printList() {
-        Node* current = this;
+struct doublyLinkedList {
+    Node* head;
+    doublyLinkedList() : head(nullptr) {}
+
+    void printList() {
+        Node* current = head;
         while (current != nullptr) {
             cout << current->data << " ";
             current = current->next;
@@ -17,22 +22,23 @@ struct Node {
         cout << endl;
     }
 
-    int insertElement(int element, int position) {
+    void insertElement(int element, int position) {
         Node* newNode = new Node(element);
         if (position == 0) {
-            newNode->next = this;
-            if (this != nullptr) {
-                this->prev = newNode;
+            newNode->next = head;
+            if (head != nullptr) {
+                head->prev = newNode;
             }
-            return 0;
+            head = newNode;
+            return;
         }
-        Node* current = this;
+        Node* current = head;
         for (int i = 0; i < position - 1 && current != nullptr; i++) {
             current = current->next;
         }
         if (current == nullptr) {
             delete newNode;
-            return -1;
+            return;
         }
         newNode->next = current->next;
         newNode->prev = current;
@@ -40,24 +46,24 @@ struct Node {
             current->next->prev = newNode;
         }
         current->next = newNode;
-        return 0;
     }
 
-    int deleteElement(int position) {
-        if (position == 0) {
-            Node* temp = this;
-            if (this->next != nullptr) {
-                this->next->prev = nullptr;
+    void deleteElement(int position) {
+        if (position == 0 && head != nullptr) {
+            Node* temp = head;
+            head = head->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
             }
             delete temp;
-            return 0;
+            return;
         }
-        Node* current = this;
+        Node* current = head;
         for (int i = 0; i < position && current != nullptr; i++) {
             current = current->next;
         }
         if (current == nullptr) {
-            return -1;
+            return;
         }
         if (current->prev != nullptr) {
             current->prev->next = current->next;
@@ -66,21 +72,25 @@ struct Node {
             current->next->prev = current->prev;
         }
         delete current;
-        return 0;
     }
 };
 
 int main() {
-    Node* head = new Node(1);
-    head->next = new Node(2);
-    head->next->prev = head;
+    doublyLinkedList list;
+    list.insertElement(10, 0);
+    list.insertElement(20, 1);
+    list.insertElement(30, 2);
+    list.printList();
+    list.deleteElement(1);
+    list.printList();
+    list.insertElement(40, 1);
+    list.printList();
 
-
-    head->printList();
-    head->insertElement(3, 1);
-    head->printList();
-    head->deleteElement(1);
-    head->printList();
+    while (list.head != nullptr) {
+        Node* temp = list.head;
+        list.head = list.head->next;
+        delete temp;
+    }
     
     return 0;
 }
