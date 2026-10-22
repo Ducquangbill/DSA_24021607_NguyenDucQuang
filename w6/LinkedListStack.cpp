@@ -19,3 +19,16 @@ struct Stack {
     }
 };
 
+int main() {
+    Stack stack;
+    stack.push(10);
+    stack.push(20);
+    stack.push(30);
+
+    stack.list.printList();
+    
+    stack.pop();
+    stack.list.printList();
+
+    return 0;
+}
