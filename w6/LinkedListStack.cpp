@@ -15,7 +15,7 @@ struct Stack {
     }
 
     bool isEmpty() {
-         return list.head == nullptr;
+         return list.getHead() == nullptr;
     }
 };
 

@@ -5,17 +5,19 @@ using namespace std;
 struct Node {
     int data;
     Node* next;
-    Node* tail;
-    Node(int val) : data(val), next(nullptr), tail(nullptr) {}
+    Node(int val) : data(val), next(nullptr) {}
 };
 
-struct LinkedList {
-    Node* head;
-    Node* tail;
-    LinkedList() : head(nullptr), tail(nullptr) {}
-    
+class LinkedList {
+    Node* head = nullptr;
+    Node* tail = nullptr;
 
-    void printList() {
+    public:
+    Node* getHead() const {
+        return head;
+    }
+
+    void printList() const {
         Node* current = head;
         while (current != nullptr) {
             cout << current->data << " ";
@@ -24,8 +26,30 @@ struct LinkedList {
         cout << endl;
     }
 
-    void insertElement(int element, int position) {
-        Node* newNode = new Node(element);
+    void append(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    void prepend(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head = newNode;
+        }
+    }
+
+    void insertElement(int value, int position) {
+        Node* newNode = new Node(value);
         if (position == 0) {
             newNode->next = head;
             head = newNode;
@@ -44,13 +68,22 @@ struct LinkedList {
         }
         newNode->next = current->next;
         current->next = newNode;
+        if (newNode->next == nullptr) {
+            tail = newNode;
+        }
     }
 
     void deleteElement(int position) {
-        if (position == 0 && head != nullptr) {
+        if (head == nullptr) {
+            return;
+        }
+        if (position == 0) {
             Node* temp = head;
             head = head->next;
             delete temp;
+            if (head == nullptr) {
+                tail = nullptr;
+            }
             return;
         }
         Node* current = head;
@@ -62,33 +95,24 @@ struct LinkedList {
         }
         Node* temp = current->next;
         current->next = temp->next;
-        delete temp;
-    }
-
-    void printList() {
-        Node* current = head;
-        while (current != nullptr) {
-            cout << current->data << " ";
-            current = current->next;
+        if (temp == tail) {
+            tail = current;
         }
-        cout << endl;
+        delete temp;
     }
 };
 
 int main() {
     LinkedList list;
-    list.insertElement(10, 0);
-    list.insertElement(20, 1);
-    list.insertElement(30, 2);
+    list.append(10);
+    list.append(20);
+    list.append(30);
     list.printList();
     list.deleteElement(1);
     list.printList();
-
-    while (list.head != nullptr) {
-        Node* temp = list.head;
-        list.head = list.head->next;
-        delete temp;
-    }
-
+    list.insertElement(40, 1);
+    list.printList();
+    
     return 0;
 }
+

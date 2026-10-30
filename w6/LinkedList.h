@@ -9,9 +9,11 @@ struct Node {
     Node(int val) : data(val), next(nullptr), tail(nullptr) {}
 };
 
-struct LinkedList {
+class LinkedList {
     Node* head;
     Node* tail;
+
+    public:
 
     int size() {
         int count = 0;
@@ -23,7 +25,31 @@ struct LinkedList {
         return count;
     }
 
-    LinkedList() : head(nullptr) {}
+    Node* getHead() const {
+        return head;
+    }
+
+    void append(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    void prepend(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head = newNode;
+        }
+    }
 
     void printList() {
         Node* current = head;
