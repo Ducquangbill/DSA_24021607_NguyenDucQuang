@@ -20,8 +20,7 @@ int main() {
     int n = sizeof(arr) / sizeof(arr[0]);
     
     insertionSort(arr, n);
-    
-    cout << "Sorted array: \n";
+
     for (int i = 0; i < n; i++) {
         cout << arr[i] << " ";
     }

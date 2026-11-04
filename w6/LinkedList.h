@@ -14,52 +14,6 @@ class LinkedList {
     Node* tail;
 
     public:
-
-    int size() {
-        int count = 0;
-        Node* current = head;
-        while (current != nullptr) {
-            count++;
-            current = current->next;
-        }
-        return count;
-    }
-
-    Node* getHead() const {
-        return head;
-    }
-
-    void append(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-
-    void prepend(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode->next = head;
-            head = newNode;
-        }
-    }
-
-    void printList() {
-        Node* current = head;
-        while (current != nullptr) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
     void insertElement(int element, int position) {
         Node* newNode = new Node(element);
         if (position == 0) {
@@ -85,6 +39,15 @@ class LinkedList {
         }
     }
 
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
     void deleteElement(int position) {
         if (position == 0 && head != nullptr) {
             Node* temp = head;
@@ -102,5 +65,19 @@ class LinkedList {
         Node* temp = current->next;
         current->next = temp->next;
         delete temp;
+    }
+
+    int size() {
+        int count = 0;
+        Node* current = head;
+        while (current != nullptr) {
+            count++;
+            current = current->next;
+        }
+        return count;
+    }
+
+    Node* getHead() const {
+        return head;
     }
 };

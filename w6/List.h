@@ -6,13 +6,6 @@ struct List {
     int array[100];
     int size;
 
-    int printArray() {
-        for (int i = 0; i < size; i++) {
-            cout << array[i] << " ";
-        }
-        cout << endl;
-    }
-
     int insertElement(int element, int position) {
         if (position < 0 || position > size || size >= 100) {
             return -1;
@@ -22,6 +15,14 @@ struct List {
         }
         array[position] = element;
         size++;
+        return 0;
+    }
+
+    int printArray() {
+        for (int i = 0; i < size; i++) {
+            cout << array[i] << " ";
+        }
+        cout << endl;
     }
 
     int deleteElement(int position) {

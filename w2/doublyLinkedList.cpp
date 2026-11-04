@@ -9,19 +9,11 @@ struct Node {
     Node(int val) : data(val), next(nullptr), prev(nullptr) {}
 };
 
-struct doublyLinkedList {
+class doublyLinkedList {
     Node* head;
-    doublyLinkedList() : head(nullptr) {}
+    Node* prev;
 
-    void printList() {
-        Node* current = head;
-        while (current != nullptr) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
+    public:
     void insertElement(int element, int position) {
         Node* newNode = new Node(element);
         if (position == 0) {
@@ -46,6 +38,15 @@ struct doublyLinkedList {
             current->next->prev = newNode;
         }
         current->next = newNode;
+    }
+    
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
     }
 
     void deleteElement(int position) {
@@ -85,12 +86,10 @@ int main() {
     list.printList();
     list.insertElement(40, 1);
     list.printList();
-
-    while (list.head != nullptr) {
-        Node* temp = list.head;
-        list.head = list.head->next;
-        delete temp;
-    }
+    list.insertElement(50, 2);
+    list.printList();
+    list.insertElement(0, 0);
+    list.printList();
     
     return 0;
 }

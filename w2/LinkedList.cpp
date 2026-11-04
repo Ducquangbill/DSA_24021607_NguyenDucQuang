@@ -13,41 +13,6 @@ class LinkedList {
     Node* tail = nullptr;
 
     public:
-    Node* getHead() const {
-        return head;
-    }
-
-    void printList() const {
-        Node* current = head;
-        while (current != nullptr) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
-    void append(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-
-    void prepend(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode->next = head;
-            head = newNode;
-        }
-    }
-
     void insertElement(int value, int position) {
         Node* newNode = new Node(value);
         if (position == 0) {
@@ -71,6 +36,15 @@ class LinkedList {
         if (newNode->next == nullptr) {
             tail = newNode;
         }
+    }
+
+    void printList() const {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
     }
 
     void deleteElement(int position) {
@@ -104,9 +78,9 @@ class LinkedList {
 
 int main() {
     LinkedList list;
-    list.append(10);
-    list.append(20);
-    list.append(30);
+    list.insertElement(10, 0);
+    list.insertElement(20, 1);
+    list.insertElement(30, 2);
     list.printList();
     list.deleteElement(1);
     list.printList();
