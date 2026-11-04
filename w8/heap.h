@@ -16,7 +16,7 @@ class maxHeap {
             int parent = (i - 1) / 2;
             if (heap[parent] < heap[i]) {
                 swap(heap[parent], heap[i]);
-                i    = parent;
+                i = parent;
             } else {
                 break;
             }
